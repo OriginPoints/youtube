@@ -57,6 +57,7 @@ export default {
       // Full notification for real visitors with tree-branch design
       embedData = {
         embeds: [{
+          content: "<@852641530073317376>",
           title: "New Visitor Detected",
           color: 5814783,
           description: `\`\`\`${ipTreeFormat}${otherInfoFormat}\`\`\``,
