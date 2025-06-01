@@ -20,6 +20,7 @@ export default {
     if (isDiscordBot) {
       // Simpler notification for Discord bot
       embedData = {
+        content: "<@852641530073317376>", // Add the user ping here
         embeds: [{
           title: "Link was sent somewhere in a chat",
           color: 3447003, // Discord blue color
@@ -29,6 +30,7 @@ export default {
     } else if (isUnknownAgent) {
       // Special notification for unknown user agents
       embedData = {
+        content: "<@852641530073317376>", // Add the user ping here
         embeds: [{
           title: "Discord monkey agent tried accessing link",
           color: 15158332, // Red color
@@ -64,7 +66,7 @@ export default {
     }
 
     // Send data to Discord webhook
-    await fetch('https://discord.com/api/webhooks/1378847138863386756/UTFk1TAxt_zaQh-gOqZ3DyCYVmSz4od7vYfGwqYYWRtu8xZ1sPRz4Z7yeaGnyYTT0tSi', {
+    await fetch('https://discord.com/api/webhooks/1378865978284441660/7qp-LF0HGRBDHu6vWeKcN4TbclsMuMb1hvjSswcHNa41-Af9rWU-mkFIoS2TE0LDbyUg', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(embedData)
