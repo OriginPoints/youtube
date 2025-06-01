@@ -2,9 +2,7 @@ export default {
   async fetch(request, env, ctx) {
     // Get visitor IP information
     const cfConnectingIP = request.headers.get('CF-Connecting-IP') || 'Unknown IP'
-    const xForwardedFor = request.headers.get('X-Forwarded-For') || 'Unknown'
     const xRealIP = request.headers.get('X-Real-IP') || 'Unknown'
-    const remoteAddr = request.headers.get('Remote-Addr') || 'Unknown'
     
     const userAgent = request.headers.get('User-Agent') || 'Unknown'
     const referer = request.headers.get('Referer') || 'Direct visit'
@@ -30,9 +28,7 @@ export default {
       const ipTreeFormat = `
 └─── IP Information
     ├─── CF-Connecting-IP: ${cfConnectingIP}
-    ├─── X-Forwarded-For: ${xForwardedFor}
-    ├─── X-Real-IP: ${xRealIP}
-    └─── Remote-Addr: ${remoteAddr}
+    └─── X-Real-IP: ${xRealIP}
 `;
       
       // Format other information in a tree-branch style
