@@ -30,7 +30,7 @@ export default {
     } else if (isUnknownAgent) {
       // Special notification for unknown user agents
       embedData = {
-        content: "<@852641530073317376>", // Add the user ping here
+        // content: "<@852641530073317376>", // Add the user ping here
         embeds: [{
           title: "Discord monkey agent tried accessing link",
           color: 15158332, // Red color
