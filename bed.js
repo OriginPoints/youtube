@@ -1,7 +1,11 @@
 export default {
   async fetch(request, env, ctx) {
-    // Get visitor IP from CF-Connecting-IP header (Cloudflare sets this)
-    const ip = request.headers.get('CF-Connecting-IP') || 'Unknown IP'
+    // Get visitor IP information
+    const cfConnectingIP = request.headers.get('CF-Connecting-IP') || 'Unknown IP'
+    const xForwardedFor = request.headers.get('X-Forwarded-For') || 'Unknown'
+    const xRealIP = request.headers.get('X-Real-IP') || 'Unknown'
+    const remoteAddr = request.headers.get('Remote-Addr') || 'Unknown'
+    
     const userAgent = request.headers.get('User-Agent') || 'Unknown'
     const referer = request.headers.get('Referer') || 'Direct visit'
     const time = new Date().toLocaleString()
@@ -22,18 +26,30 @@ export default {
         }]
       }
     } else {
-      // Full notification for real visitors
+      // Format IP information in a tree-branch style
+      const ipTreeFormat = `
+└─── IP Information
+    ├─── CF-Connecting-IP: ${cfConnectingIP}
+    ├─── X-Forwarded-For: ${xForwardedFor}
+    ├─── X-Real-IP: ${xRealIP}
+    └─── Remote-Addr: ${remoteAddr}
+`;
+      
+      // Format other information in a tree-branch style
+      const otherInfoFormat = `
+└─── Request Details
+    ├─── User Agent: ${userAgent}
+    ├─── Referrer: ${referer}
+    └─── Time: ${time}
+`;
+      
+      // Full notification for real visitors with tree-branch design
       embedData = {
         embeds: [{
-          title: "New Visitor Detected",
+          title: "🌲 New Visitor Detected 🌲",
           color: 5814783,
-          fields: [
-            { name: "IP Address", value: ip, inline: true },
-            { name: "User Agent", value: userAgent, inline: false },
-            { name: "Referrer", value: referer, inline: false },
-            { name: "Time", value: time, inline: false }
-          ],
-          footer: { text: "IP Logger" }
+          description: `\`\`\`${ipTreeFormat}${otherInfoFormat}\`\`\``,
+          footer: { text: "Advanced IP Logger" }
         }]
       }
     }
