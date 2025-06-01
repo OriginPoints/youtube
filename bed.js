@@ -20,7 +20,7 @@ export default {
     if (isDiscordBot) {
       // Simpler notification for Discord bot
       embedData = {
-        content: "<@852641530073317376>", // Add the user ping here
+        // content: "<@852641530073317376>", // Add the user ping here
         embeds: [{
           title: "Link was sent somewhere in a chat",
           color: 3447003, // Discord blue color
