@@ -18,7 +18,7 @@ export default {
         embeds: [{
           title: "Link was sent somewhere in a chat",
           color: 3447003, // Discord blue color
-          footer: { text: "IP Logger" }
+          footer: { text: "expect an ip soon" }
         }]
       }
     } else {
